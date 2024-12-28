@@ -10,10 +10,22 @@ app.use(express.urlencoded({ extended: true }));
 const Admin = require("./models/Admin");
 const Singer = require("./models/Singer");
 const Genre = require("./models/Genre");
+const Concert = require("./models/Concert");
+const Count = require("./models/Count");
 
 app.get("/", async (req, res) => {
+    const revenue = await Count.revenue();
+    const tickets = await Count.tickets();
+    const singers = await Count.singers();
+    const concerts = await Count.concerts();
+
     res.render("index", {
         title: "Ana Sayfa | Konser KDS",
+
+        revenue: revenue[0],
+        tickets: tickets[0],
+        singers: singers[0],
+        concerts: concerts[0],
     });
 });
 

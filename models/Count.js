@@ -5,7 +5,7 @@ module.exports = class Count {
     static revenue() {
         return connection.execute(`
             SELECT
-                SUM(concert.price * concert.sold_ticket) as total_revenue
+                SUM(concert.price * concert.sold_ticket) as number
             FROM concert
         `);
     }
@@ -14,7 +14,7 @@ module.exports = class Count {
     static tickets() {
         return connection.execute(`
             SELECT
-            	SUM(concert.sold_ticket) as total_sold_ticket
+            	SUM(concert.sold_ticket) as number
             FROM concert
         `);
     }
@@ -23,7 +23,7 @@ module.exports = class Count {
     static singers() {
         return connection.execute(`
             SELECT
-            	COUNT(singer.id) as total_singer
+            	COUNT(singer.id) as number
             FROM singer    
         `);
     }
@@ -32,7 +32,7 @@ module.exports = class Count {
     static concerts() {
         return connection.execute(`
             SELECT
-            	COUNT(concert.id) as total_concert
+            	COUNT(concert.id) as number
             FROM concert 
         `);
     }
