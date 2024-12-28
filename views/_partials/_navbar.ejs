@@ -3,7 +3,7 @@
         class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
     >
         <a class="navbar-brand brand-logo ms-5" href="<%= baseURL %>/">
-            <img src="./logo.png" width="50" class="mr-2" alt="logo" />
+            <img src="./logo.png" width="30" class="mr-2" alt="logo" />
             <span class="d-none d-lg-inline-block ml-1"> Konser KDS </span>
         </a>
         <a class="navbar-brand brand-logo-mini" href="<%= baseURL %>/"
@@ -27,6 +27,7 @@
                     href="#"
                     data-toggle="dropdown"
                     id="profileDropdown"
+                    aria-expanded="true"
                 >
                     <img src="./user.png" alt="profile" />
                 </a>
@@ -40,18 +41,6 @@
                     </a>
                 </div>
             </li>
-            <li class="nav-item nav-settings d-none d-lg-flex">
-                <a class="nav-link" href="#">
-                    <i class="icon-ellipsis"></i>
-                </a>
-            </li>
         </ul>
-        <button
-            class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
-            type="button"
-            data-toggle="offcanvas"
-        >
-            <span class="icon-menu"></span>
-        </button>
     </div>
 </nav>

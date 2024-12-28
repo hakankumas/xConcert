@@ -7,6 +7,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const Admin = require("./models/Admin");
 const Singer = require("./models/Singer");
 const Genre = require("./models/Genre");
 
@@ -14,6 +15,18 @@ app.get("/", async (req, res) => {
     res.render("index", {
         title: "Ana Sayfa | Konser KDS",
     });
+});
+
+app.get("/login", async (req, res) => {
+    res.render("login", {
+        title: "Yönetici Giriş | Konser KDS",
+    });
+});
+
+app.post("/api/login", async (req, res) => {
+    const admin = await Admin.login(req.body);
+    if (admin[0][0]) res.redirect("/");
+    else res.redirect("/login");
 });
 
 app.get("/api/singers", async (req, res) => {
