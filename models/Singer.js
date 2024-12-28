@@ -16,4 +16,17 @@ module.exports = class Singer {
             LEFT JOIN genre ON singer.genre_id = genre.id
         `);
     }
+
+    // Şarkıcılara Göre Konser Sayıları
+    static number_of_concert_by_singer() {
+        return connection.execute(`
+            SELECT 
+                singer.id as singer_id,
+                singer.nickname as singer_nickname,
+                COUNT(concert.id) as number
+            FROM singer
+            LEFT JOIN concert ON singer.id = concert.singer_id
+            GROUP BY singer.id
+        `);
+    }
 };
