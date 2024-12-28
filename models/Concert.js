@@ -53,7 +53,7 @@ module.exports = class Concert {
             LEFT JOIN singer ON concert.singer_id = singer.id 
             LEFT JOIN gender ON singer.gender_id = gender.id
             LEFT JOIN genre ON singer.genre_id = genre.id
-			LEFT JOIN city ON concert.city_id = city.id;
+			LEFT JOIN city ON concert.city_id = city.id
         `);
     }
 };
