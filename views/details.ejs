@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- prettier-ignore -->
+        <%- include('./_partials/_head'); %>
+        <%- include('./_partials/_cdn_datatables'); %>
+        <%- include('./_partials/_cdn_googlecharts'); %>
+        <%- include('./_partials/_cdn_fontawesome'); %>
+        <!-- prettier-ignore -->
+    </head>
+    <body>
+        <div class="container-scroller">
+            <%- include('./_partials/_navbar') %>
+            <div class="container-fluid page-body-wrapper">
+                <%- include('./_partials/_sidebar') %>
+                <div class="main-panel">
+                    <div class="content-wrapper" style="min-height: 100vh">
+                        <div class="row">
+                            <div class="col-lg-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Konser Bilgisi Güncelle
+                                        </h1>
+
+                                        <!-- prettier-ignore -->
+                                        <form class="forms-sample" action="<%= baseURL %>/concert/update" method="POST">
+                                            <input type="hidden" name="concert_id" value="<%= concert_id %>">
+                                            <div class="form-group">
+                                                <label for="singer">Sanatçı</label>
+                                                <select class="form-control" id="singer" name="singer">
+                                                    <option value="<%= concert[0].singer_id %>"><%= concert[0].singer_nickname %></option>
+                                                    <!-- prettier-ignore -->
+                                                    <% list_singer.forEach(item => { %>
+                                                    <!-- prettier-ignore -->
+                                                    <option value="<%= item.singer_id %>">
+                                                        <%= item.singer_nickname %>
+                                                    </option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="city">Şehir</label>
+                                                <select class="form-control" id="city" name="city">
+                                                    <option value="<%= concert[0].city_id %>"><%= concert[0].city_name %></option>
+                                                    <!-- prettier-ignore -->
+                                                    <% list_city.forEach(item => { %>
+                                                    <!-- prettier-ignore -->
+                                                    <option value="<%= item.city_id %>">
+                                                        <%= item.city_name %>
+                                                    </option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="location">Mekan Bilgisi</label>
+                                                <input type="text" class="form-control" id="location" name="location" value="<%= concert[0].concert_location %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="concert_date">Konser Tarihi: <strong><%= new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "long", year: "numeric" }).format(new Date(concert[0].concert_date)) %></strong> </label>
+                                                <input type="date" class="form-control" id="concert_date" name="date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="capacity">Mekan Kapasitesi</label>
+                                                <input type="text" class="form-control" id="capacity" name="capacity" value="<%= concert[0].concert_capacity %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Bilet Fiyatı</label>
+                                                <input type="text" class="form-control" id="price" name="price" value="<%= concert[0].concert_price %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sold_ticket">Satılan Bilet</label>
+                                                <input type="text" class="form-control" id="sold_ticket" name="sold_ticket" value="<%= concert[0].concert_sold_ticket %>">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mr-2" style="width: 100px;">Güncelle</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%- include('./_partials/_footer') %>
+                </div>
+            </div>
+        </div>
+        <%- include('./_partials/_scripts') %>
+        <script>
+            // Tarih formatını 'yyyy-mm-dd' => 'gg-aa-yyyy' olarak dönüştüren fonksiyon
+            function formatDate(dateStr) {
+                const dateParts = dateStr.split("-"); // Tarihi yıl-ay-gün formatında böler
+                return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`; // gg-aa-yyyy formatına dönüştürür
+            }
+        </script>
+    </body>
+</html>

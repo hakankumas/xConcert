@@ -20,9 +20,8 @@ app.get("/", async (req, res) => {
     const singers = await Count.singers();
     const concerts = await Count.concerts();
 
-    const list_singer = await Singer.singers();
+    const list_singer = await Singer.getall();
     const list_city = await City.getall();
-    const concert_notices = await Concert.notices();
     const concert_revenues = await Concert.revenues();
 
     res.render("index", {
@@ -35,7 +34,6 @@ app.get("/", async (req, res) => {
 
         list_singer: list_singer[0],
         list_city: list_city[0],
-        concert_notices: concert_notices[0],
         concert_revenues: concert_revenues[0],
     });
 });
@@ -53,7 +51,7 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/singers", async (req, res) => {
-    const singers = await Singer.singers();
+    const singers = await Singer.getall();
 
     res.status(200).json({
         singers: singers[0],
@@ -70,6 +68,32 @@ app.get("/api/genres", async (req, res) => {
 
 app.post("/concert/create", async (req, res) => {
     const concert = await Concert.create(req.body);
+    if (concert) res.redirect("/");
+});
+
+app.get("/concert/details/:id", async (req, res) => {
+    const concertId = Number(req.params.id);
+    if (isNaN(concertId)) {
+        return res
+            .status(400)
+            .send("Geçersiz konser ID'si. Sayısal bir değer girin.");
+    }
+    const concert = await Concert.getById(concertId);
+    const list_singer = await Singer.getall();
+    const list_city = await City.getall();
+
+    res.render("details", {
+        title: "Konser Güncelleme Sayfası | Konser KDS",
+
+        concert: concert[0],
+        list_singer: list_singer[0],
+        list_city: list_city[0],
+        concert_id: concertId,
+    });
+});
+
+app.post("/concert/update", async (req, res) => {
+    const concert = await Concert.update(req.body);
     if (concert) res.redirect("/");
 });
 

@@ -2,7 +2,7 @@ const connection = require("../database/db");
 
 module.exports = class Singer {
     // Şarkıcılar
-    static singers() {
+    static getall() {
         return connection.execute(`
             SELECT 
                 singer.id as singer_id,
