@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="col-lg-4 grid-margin stretch-card">
                                 <div class="card">
                                     <div class="card-body">
                                         <h1
@@ -120,7 +120,7 @@
                                                 font-weight: bold;
                                             "
                                         >
-                                            Konser Oluşturma Formu
+                                            Konser Oluştur
                                         </h1>
 
                                         <!-- prettier-ignore -->
@@ -167,8 +167,138 @@
                                                 <label for="price">Bilet Fiyatı</label>
                                                 <input type="text" class="form-control" id="price" name="price">
                                             </div>
-                                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                            <button type="submit" class="btn btn-success mr-2" style="width: 100px;">Ekle</button>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center pt-3"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Konser Bilgileri
+                                        </h1>
+                                        <table
+                                            id="table_concerts"
+                                            class="display rounded"
+                                            style="
+                                                width: 100%;
+                                                background-color: whitesmoke;
+                                            "
+                                        >
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">
+                                                        ID
+                                                    </th>
+                                                    <th>Sanatçı</th>
+                                                    <th>Şehir</th>
+                                                    <th>Mekan</th>
+                                                    <th class="text-center">
+                                                        Tarih
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Bilet Fiyatı
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Kapasite
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Sil
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- prettier-ignore -->
+                                                <% concert_notices.forEach(item => { %>
+                                                <!-- prettier-ignore -->
+                                                <tr>
+                                                    <td class="text-center"><%= item.concert_id %></td>
+                                                    <td><%= item.singer_nickname %></td>
+                                                    <td><%= item.city_name %></td>
+                                                    <td><%= item.concert_location %></td>
+                                                    <td class="text-center"><%= new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(item.concert_date)) %></td>
+                                                    <td class="text-center"><%= item.concert_price %> ₺</td>
+                                                    <td class="text-center"><%= item.concert_capacity %></td>
+                                                    <td class="text-danger text-center">
+                                                        <a href="<%= baseURL %>/concert/delete/<%= item.concert_id %>" class="btn btn-outline-danger">Sil</a>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center pt-3"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Konser Hasılat Bilgileri
+                                        </h1>
+                                        <table
+                                            id="table_concerts_revenue"
+                                            class="display rounded"
+                                            style="
+                                                width: 100%;
+                                                background-color: whitesmoke;
+                                            "
+                                        >
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">
+                                                        ID
+                                                    </th>
+                                                    <th>Sanatçı</th>
+                                                    <th>Şehir</th>
+                                                    <th>Mekan</th>
+                                                    <th class="text-center">
+                                                        Tarih
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Bilet Fiyatı
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Kapasite
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Sil
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- prettier-ignore -->
+                                                <% concert_notices.forEach(item => { %>
+                                                <!-- prettier-ignore -->
+                                                <tr>
+                                                    <td class="text-center"><%= item.concert_id %></td>
+                                                    <td><%= item.singer_nickname %></td>
+                                                    <td><%= item.city_name %></td>
+                                                    <td><%= item.concert_location %></td>
+                                                    <td class="text-center"><%= new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(item.concert_date)) %></td>
+                                                    <td class="text-center"><%= item.concert_price %> ₺</td>
+                                                    <td class="text-center"><%= item.concert_capacity %></td>
+                                                    <td class="text-danger text-center">
+                                                        <a href="<%= baseURL %>/concert/delete/<%= item.concert_id %>" class="btn btn-outline-danger">Sil</a>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -179,5 +309,19 @@
             </div>
         </div>
         <%- include('./_partials/_scripts') %>
+        <script>
+            new DataTable("#table_concerts", {
+                paging: false,
+                scrollCollapse: true,
+                scrollY: "75vh",
+                order: [[0, "desc"]],
+            });
+            new DataTable("#table_concerts_revenue", {
+                paging: false,
+                scrollCollapse: true,
+                scrollY: "75vh",
+                order: [[0, "desc"]],
+            });
+        </script>
     </body>
 </html>
