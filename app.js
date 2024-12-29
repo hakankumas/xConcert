@@ -12,12 +12,16 @@ const Singer = require("./models/Singer");
 const Genre = require("./models/Genre");
 const Concert = require("./models/Concert");
 const Count = require("./models/Count");
+const City = require("./models/City");
 
 app.get("/", async (req, res) => {
     const revenue = await Count.revenue();
     const tickets = await Count.tickets();
     const singers = await Count.singers();
     const concerts = await Count.concerts();
+
+    const list_singer = await Singer.singers();
+    const list_city = await City.getall();
 
     res.render("index", {
         title: "Ana Sayfa | Konser KDS",
@@ -26,6 +30,9 @@ app.get("/", async (req, res) => {
         tickets: tickets[0],
         singers: singers[0],
         concerts: concerts[0],
+
+        list_singer: list_singer[0],
+        list_city: list_city[0],
     });
 });
 
@@ -55,6 +62,11 @@ app.get("/api/genres", async (req, res) => {
     res.status(200).json({
         genres: genres[0],
     });
+});
+
+app.post("/concert/create", async (req, res) => {
+    const concert = await Concert.create(req.body);
+    if (concert) res.redirect("/");
 });
 
 const PORT = 3001;

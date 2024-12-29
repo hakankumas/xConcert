@@ -69,4 +69,13 @@ module.exports = class Concert {
             GROUP BY city.id
         `);
     }
+
+    // Konser Ekleme
+    static create(condition) {
+        const { singer, city, location, date, price, capacity } = condition;
+        return connection.execute(
+            `INSERT INTO concert (singer_id, city_id, location, date, price, capacity) VALUES (?,?,?,?,?,?)`,
+            [singer, city, location, date, price, capacity]
+        );
+    }
 };
