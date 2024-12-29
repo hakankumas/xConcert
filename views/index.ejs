@@ -6,13 +6,13 @@
         <%- include('./_partials/_cdn_datatables'); %>
         <%- include('./_partials/_cdn_googlecharts'); %>
         <%- include('./_partials/_cdn_fontawesome'); %>
+        <%- include('./_partials/_pie_charts'); %>
         <!-- prettier-ignore -->
     </head>
     <body>
         <div class="container-scroller">
             <%- include('./_partials/_navbar') %>
             <div class="container-fluid page-body-wrapper">
-                <%- include('./_partials/_sidebar') %>
                 <div class="main-panel">
                     <div class="content-wrapper" style="min-height: 100vh">
                         <div class="row">
@@ -35,7 +35,9 @@
                                                     <i
                                                         class="fa-solid fa-turkish-lira-sign"
                                                     ></i>
-                                                    <%= revenue[0].number %>
+                                                    <%=
+                                                    Number(revenue[0].number).toLocaleString('tr-TR')
+                                                    %> ₺
                                                 </p>
                                             </div>
                                         </div>
@@ -57,7 +59,9 @@
                                                     <i
                                                         class="fa-solid fa-ticket"
                                                     ></i>
-                                                    <%= tickets[0].number %>
+                                                    <%=
+                                                    Number(tickets[0].number).toLocaleString('tr-TR')
+                                                    %> ₺
                                                 </p>
                                             </div>
                                         </div>
@@ -161,14 +165,58 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="capacity">Mekan Kapasitesi</label>
-                                                <input type="text" class="form-control" id="capacity" name="capacity">
+                                                <input type="text" class="form-control" id="capacity" name="capacity" placeholder="Örn: 1000">
                                             </div>
                                             <div class="form-group">
                                                 <label for="price">Bilet Fiyatı</label>
-                                                <input type="text" class="form-control" id="price" name="price">
+                                                <input type="text" class="form-control" id="price" name="price" placeholder="Örn: 1000">
                                             </div>
                                             <button type="submit" class="btn btn-success mr-2" style="width: 100px;">Ekle</button>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center pt-3"
+                                            style="
+                                                font-size: 25px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Şehirlere Göre Konser Dağılımı
+                                        </h1>
+                                        <div
+                                            id="chart_city"
+                                            style="
+                                                min-width: 100%;
+                                                height: 40vh;
+                                            "
+                                        ></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center pt-3"
+                                            style="
+                                                font-size: 25px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Sanatçılara Göre Konser Dağılımı
+                                        </h1>
+                                        <div
+                                            id="chart_singer"
+                                            style="
+                                                min-width: 100%;
+                                                height: 40vh;
+                                            "
+                                        ></div>
                                     </div>
                                 </div>
                             </div>
@@ -214,13 +262,13 @@
                                                     <th class="text-center">
                                                         Satılan Bilet
                                                     </th>
-                                                    <th class="text-center">
+                                                    <th class="text-right">
                                                         Hedeflenen Kazanç
                                                     </th>
-                                                    <th class="text-center">
+                                                    <th class="text-right">
                                                         Elde Edilen Kazanç
                                                     </th>
-                                                    <th class="text-center">
+                                                    <th class="text-right">
                                                         Zarar Edilen Kazanç
                                                     </th>
                                                     <th class="text-center">
@@ -244,9 +292,9 @@
                                                     <td class="text-center"><%= item.concert_price %> ₺</td>
                                                     <td class="text-center"><%= item.concert_capacity %></td>
                                                     <td class="text-center"><%= item.concert_sold_ticket %></td>
-                                                    <td class="text-center"><%= item.target_revenue %> ₺</td>
-                                                    <td class="text-center"><%= item.total_revenue %> ₺</td>
-                                                    <td class="text-center"><%= item.cost_revenue %> ₺</td>
+                                                    <td class="text-right text-info"><%= item.target_revenue.toLocaleString('tr-TR') %> ₺</td>
+                                                    <td class="text-right text-success"><%= item.total_revenue.toLocaleString('tr-TR') %> ₺</td>
+                                                    <td class="text-right text-danger"><%= item.cost_revenue.toLocaleString('tr-TR') %> ₺</td>
                                                     <td class="text-success text-center">
                                                         <a href="<%= baseURL %>/concert/details/<%= item.concert_id %>" class="btn btn-outline-success py-3">Güncelle</a>
                                                     </td>

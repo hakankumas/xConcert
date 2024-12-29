@@ -108,6 +108,23 @@ app.get("/concert/delete/:id", async (req, res) => {
     if (concert) res.redirect("/");
 });
 
+app.get("/api/number_of_concert_by_city", async (req, res) => {
+    const number_of_concert_by_city = await City.number_of_concert_by_city();
+
+    res.status(200).json({
+        number_of_concert_by_city: number_of_concert_by_city[0],
+    });
+});
+
+app.get("/api/number_of_concert_by_singer", async (req, res) => {
+    const number_of_concert_by_singer =
+        await Singer.number_of_concert_by_singer();
+
+    res.status(200).json({
+        number_of_concert_by_singer: number_of_concert_by_singer[0],
+    });
+});
+
 const PORT = 3001;
 app.locals.baseURL = `http://localhost:${PORT}`;
 app.listen(PORT, () => {

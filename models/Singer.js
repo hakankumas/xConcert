@@ -14,6 +14,7 @@ module.exports = class Singer {
             FROM singer
             LEFT JOIN gender ON singer.gender_id = gender.id
             LEFT JOIN genre ON singer.genre_id = genre.id
+            ORDER BY singer.nickname ASC
         `);
     }
 
