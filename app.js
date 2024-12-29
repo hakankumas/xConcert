@@ -23,6 +23,7 @@ app.get("/", async (req, res) => {
     const list_singer = await Singer.singers();
     const list_city = await City.getall();
     const concert_notices = await Concert.notices();
+    const concert_revenues = await Concert.revenues();
 
     res.render("index", {
         title: "Ana Sayfa | Konser KDS",
@@ -35,6 +36,7 @@ app.get("/", async (req, res) => {
         list_singer: list_singer[0],
         list_city: list_city[0],
         concert_notices: concert_notices[0],
+        concert_revenues: concert_revenues[0],
     });
 });
 

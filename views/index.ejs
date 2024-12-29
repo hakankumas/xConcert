@@ -276,13 +276,25 @@
                                                         Kapasite
                                                     </th>
                                                     <th class="text-center">
+                                                        Satılan Bilet
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Hedeflenen Kazanç
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Elde Edilen Kazanç
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Zarar Edilen Kazanç
+                                                    </th>
+                                                    <th class="text-center">
                                                         Sil
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <!-- prettier-ignore -->
-                                                <% concert_notices.forEach(item => { %>
+                                                <% concert_revenues.forEach(item => { %>
                                                 <!-- prettier-ignore -->
                                                 <tr>
                                                     <td class="text-center"><%= item.concert_id %></td>
@@ -292,6 +304,10 @@
                                                     <td class="text-center"><%= new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(item.concert_date)) %></td>
                                                     <td class="text-center"><%= item.concert_price %> ₺</td>
                                                     <td class="text-center"><%= item.concert_capacity %></td>
+                                                    <td class="text-center"><%= item.concert_sold_ticket %></td>
+                                                    <td class="text-center"><%= item.target_revenue %> ₺</td>
+                                                    <td class="text-center"><%= item.total_revenue %> ₺</td>
+                                                    <td class="text-center"><%= item.cost_revenue %> ₺</td>
                                                     <td class="text-danger text-center">
                                                         <a href="<%= baseURL %>/concert/delete/<%= item.concert_id %>" class="btn btn-outline-danger">Sil</a>
                                                     </td>
