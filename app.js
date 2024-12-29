@@ -97,6 +97,17 @@ app.post("/concert/update", async (req, res) => {
     if (concert) res.redirect("/");
 });
 
+app.get("/concert/delete/:id", async (req, res) => {
+    const concertId = Number(req.params.id);
+    if (isNaN(concertId)) {
+        return res
+            .status(400)
+            .send("Geçersiz konser ID'si. Sayısal bir değer girin.");
+    }
+    const concert = await Concert.delete(concertId);
+    if (concert) res.redirect("/");
+});
+
 const PORT = 3001;
 app.locals.baseURL = `http://localhost:${PORT}`;
 app.listen(PORT, () => {

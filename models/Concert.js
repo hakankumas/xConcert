@@ -122,4 +122,9 @@ module.exports = class Concert {
             );
         }
     }
+
+    // Konser Silme
+    static delete(concertId) {
+        return connection.execute(`DELETE FROM concert WHERE id =${concertId}`);
+    }
 };
