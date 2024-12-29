@@ -9,7 +9,6 @@ app.use(express.urlencoded({ extended: true }));
 
 const Admin = require("./models/Admin");
 const Singer = require("./models/Singer");
-const Genre = require("./models/Genre");
 const Concert = require("./models/Concert");
 const Count = require("./models/Count");
 const City = require("./models/City");
@@ -55,14 +54,6 @@ app.get("/api/singers", async (req, res) => {
 
     res.status(200).json({
         singers: singers[0],
-    });
-});
-
-app.get("/api/genres", async (req, res) => {
-    const genres = await Genre.genres();
-
-    res.status(200).json({
-        genres: genres[0],
     });
 });
 
