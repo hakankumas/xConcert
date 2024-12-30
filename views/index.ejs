@@ -61,7 +61,7 @@
                                                     ></i>
                                                     <%=
                                                     Number(tickets[0].number).toLocaleString('tr-TR')
-                                                    %> ₺
+                                                    %>
                                                 </p>
                                             </div>
                                         </div>
@@ -309,6 +309,112 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Türe Göre Sanatçılar
+                                        </h1>
+
+                                        <!-- prettier-ignore -->
+                                        <form class="forms-sample d-flex justify-content-center align-items-center" action="<%= baseURL %>/search" method="get">
+                                            <div class="form-group" style="width: 25%; padding-right: 10px;">
+                                                <label for="genre">Tür Seçiniz</label>
+                                                <select class="form-control" id="genre" name="genre">
+                                                    <option value=""></option>
+                                                    <!-- prettier-ignore -->
+                                                    <% list_genre.forEach(item => { %>
+                                                    <!-- prettier-ignore -->
+                                                    <option value="<%= item.genre_id %>">
+                                                        <%= item.genre_name %>
+                                                    </option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="form-group" style="translate: 0px 15px; padding-left: 10px;">
+                                                <button type="submit" class="btn btn-primary mr-2" style="width: 130px;">Sorgula</button>
+                                            </div>
+                                        </form>
+                                        <hr />
+                                        <!-- prettier-ignore -->
+                                        <% if (singers_by_genre && singers_by_genre[0]) { %>
+                                        <div
+                                            class="col-lg-12 grid-margin stretch-card"
+                                        >
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h1
+                                                        class="text-center pt-3"
+                                                        style="
+                                                            font-size: 24px;
+                                                            font-weight: bold;
+                                                        "
+                                                    >
+                                                        <!-- prettier-ignore -->
+                                                        <%= singers_by_genre[0].genre_name %> Türüne Ait Sanatçılar
+                                                    </h1>
+
+                                                    <table
+                                                        id="table_singers_by_genre"
+                                                        class="display rounded"
+                                                        style="
+                                                            width: 100%;
+                                                            background-color: whitesmoke;
+                                                        "
+                                                    >
+                                                        <thead>
+                                                            <tr>
+                                                                <th
+                                                                    class="text-center"
+                                                                >
+                                                                    ID
+                                                                </th>
+                                                                <th>Sanatçı</th>
+                                                                <th>
+                                                                    Cinsiyet
+                                                                </th>
+                                                                <th>Tür</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- prettier-ignore -->
+                                                            <% singers_by_genre.forEach(item => { %>
+                                                            <!-- prettier-ignore -->
+                                                            <tr>
+                                                                        <td class="text-center"><%= item.singer_id %></td>
+                                                                        <td><%= item.singer_nickname %></td>
+                                                                        <td><%= item.gender_name %></td>
+                                                                        <td><%= item.genre_name %></td>
+                                                                    </tr>
+                                                            <% }) %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- prettier-ignore -->
+                                        <% } else if (singers_by_genre && singers_by_genre[0]==null) { %>
+                                        <h1
+                                            class="text-center text-danger font-italic"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Herhangi bir sanatçı bulunamadı!
+                                        </h1>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <%- include('./_partials/_footer') %>
                 </div>
@@ -321,6 +427,15 @@
                 scrollCollapse: true,
                 scrollY: "75vh",
                 order: [[0, "desc"]],
+            });
+            new DataTable("#table_singers_by_genre", {
+                paging: false,
+                scrollCollapse: true,
+                scrollY: "75vh",
+                order: [[0, "desc"]],
+                searching: false,
+                paging: false,
+                info: false,
             });
         </script>
     </body>

@@ -12,6 +12,7 @@ const Singer = require("./models/Singer");
 const Concert = require("./models/Concert");
 const Count = require("./models/Count");
 const City = require("./models/City");
+const Genre = require("./models/Genre");
 
 app.get("/", async (req, res) => {
     const revenue = await Count.revenue();
@@ -21,6 +22,7 @@ app.get("/", async (req, res) => {
 
     const list_singer = await Singer.getall();
     const list_city = await City.getall();
+    const list_genre = await Genre.getall();
     const concert_revenues = await Concert.revenues();
 
     res.render("index", {
@@ -33,7 +35,9 @@ app.get("/", async (req, res) => {
 
         list_singer: list_singer[0],
         list_city: list_city[0],
+        list_genre: list_genre[0],
         concert_revenues: concert_revenues[0],
+        singers_by_genre: null,
     });
 });
 
@@ -113,6 +117,37 @@ app.get("/api/number_of_concert_by_singer", async (req, res) => {
 
     res.status(200).json({
         number_of_concert_by_singer: number_of_concert_by_singer[0],
+    });
+});
+
+app.get("/search", async (req, res) => {
+    const genre_id = req.query.genre;
+    const singers_by_genre = await Genre.getById_singer(genre_id);
+
+    const revenue = await Count.revenue();
+    const tickets = await Count.tickets();
+    const singers = await Count.singers();
+    const concerts = await Count.concerts();
+
+    const list_singer = await Singer.getall();
+    const list_city = await City.getall();
+    const list_genre = await Genre.getall();
+    const concert_revenues = await Concert.revenues();
+    // return console.log(singers_by_genre[0]);
+    res.render("index", {
+        title: "Ana Sayfa | Konser KDS",
+
+        revenue: revenue[0],
+        tickets: tickets[0],
+        singers: singers[0],
+        concerts: concerts[0],
+
+        list_singer: list_singer[0],
+        list_city: list_city[0],
+        list_genre: list_genre[0],
+        concert_revenues: concert_revenues[0],
+
+        singers_by_genre: singers_by_genre[0] ? singers_by_genre[0] : null,
     });
 });
 
