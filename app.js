@@ -151,7 +151,7 @@ app.get("/search", async (req, res) => {
     });
 });
 
-const PORT = 3001;
+const PORT = 3000;
 app.locals.baseURL = `http://localhost:${PORT}`;
 app.listen(PORT, () => {
     console.log(`Server is running at ${PORT}`);
